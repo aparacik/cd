@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,12 +53,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
+       <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
-          <form class="navbar-form navbar-right">
+      <form class="navbar-form navbar-right">
+      <?php 
+       if ($this->session->userdata('id') !== NULL) {
+          echo '
+           <div class="form-group">
+           '.$this->session->userdata('first_name').'
+            <a class="btn btn-danger" href=" '.base_url().'account/logout">Logout</a>
+           </div>';
+       } else {
+          echo '
+       
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
             </div>
@@ -65,10 +76,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <input type="password" placeholder="Password" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
+          ';
+         }
+        ?>
+      </form>
+        
+           
+          
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<?php 
+
+  $dane = $this->session->all_userdata();
+  echo '<pre>';
+  print_r($dane);
+  echo '</pre>';
+
+
+?>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">

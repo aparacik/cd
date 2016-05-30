@@ -181,7 +181,7 @@ class Account extends CI_Controller {
             
             if(!$user_info){
                 $this->session->set_flashdata('flash_message', 'Token is invalid or expired');
-                redirect(site_url().'main/login');
+                redirect(site_url().'account/login');
             }            
             $data = array(
                 'firstName'=> $user_info->first_name, 
@@ -212,6 +212,12 @@ class Account extends CI_Controller {
                 redirect(site_url().'account/login');                
             }
         }
+
+        public function logout()
+            {
+                 $this->session->sess_destroy();
+                   redirect(site_url().'account/login'); 
+            }
 
 
 }
