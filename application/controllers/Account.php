@@ -41,11 +41,11 @@ class Account extends CI_Controller {
                             $url = site_url() . 'account/complete/token/' . $qstring;
                             $link = '<a href="' . $url . '">CLICK HERE BITCH</a>'; 
                                        
-                                              
+                            $subject = 'Account activation';                  
                             $message = '<strong>You have signed up with our website</strong><br>';
                             $message .= $link;     
 
-                            $this->sendmail($message, $this->input->post('email'));                     
+                            $this->sendmail($subject, $message, $this->input->post('email'));                     
                              // $this->template->load('base_templates/base', 'login');
 
                             echo '<div class="alert alert-success">sprawdz skrzynke pis jou</div>'; //send this in email
@@ -166,10 +166,12 @@ class Account extends CI_Controller {
                 $url = site_url() . 'account/reset_password/token/' . $qstring;
                 $link = '<a href="' . $url . '">' . $url . '</a>'; 
                 
+                $subject = 'Password reset';
                 $message = '';                     
                 $message .= '<strong>A password reset has been requested for this email account</strong><br>';
-                $message .= '<strong>Please click:</strong> ' . $link;             
-                echo $message; //send this through mail
+                $message .= '<strong>Please click:</strong> ' . $link;   
+                 $this->sendmail($subject, $message, $email)    ;      
+                
                 exit;
                 
             }
@@ -224,7 +226,7 @@ class Account extends CI_Controller {
                    redirect(site_url().'account/login'); 
             }
 
-          public function sendmail($message_, $email ) { 
+          public function sendmail($subject, $message_, $email ) { 
                 $this->load->library('email');
 
                 $config['protocol'] = "smtp";
@@ -242,7 +244,7 @@ class Account extends CI_Controller {
 
                 $this->email->from('admin@gmail.com', 'admin');
                 $this->email->to($email);
-                $this->email->subject('Registration Verification:');
+                $this->email->subject($subject.':');
 
                 // $message = "Thanks for signing up! Your account has been created, you can login with your credentials after you have activated your account by pressing the url below. Please click this link to activate your account:<a href='.$token.>Click Here</a>";
 
