@@ -172,6 +172,48 @@ class Account extends CI_Controller {
         }
 
 
+        public function reset_password()
+        {
+            $token = base64_decode($this->uri->segment(4));       
+            $cleanToken = $this->security->xss_clean($token);
+            
+            $user_info = $this->user_model->isTokenValid($cleanToken); //either false or array();               
+            
+            if(!$user_info){
+                $this->session->set_flashdata('flash_message', 'Token is invalid or expired');
+                redirect(site_url().'main/login');
+            }            
+            $data = array(
+                'firstName'=> $user_info->first_name, 
+                'email'=>$user_info->email, 
+                'user_id'=>$user_info->id, 
+                'token'=>base64_encode($token)
+            );
+           
+            $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
+            $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');              
+            
+            if ($this->form_validation->run() == FALSE) {   
+               
+                $this->template->load('base_templates/base','reset_password', $data);
+            }else{
+                                
+                $this->load->library('password');                 
+                $post = $this->input->post(NULL, TRUE);                
+                $cleanPost = $this->security->xss_clean($post);                
+                $hashed = $this->password->create_hash($cleanPost['password']);                
+                $cleanPost['password'] = $hashed;
+                unset($cleanPost['passconf']);                
+                if(!$this->user_model->updatePassword($cleanPost)){
+                    $this->session->set_flashdata('flash_message', 'There was a problem updating your password');
+                }else{
+                    $this->session->set_flashdata('flash_message', 'Your password has been updated. You may now login');
+                }
+                redirect(site_url().'account/login');                
+            }
+        }
+
+
 }
 
 ?>
