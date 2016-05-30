@@ -38,7 +38,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="register.">Rejestracja</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -63,19 +62,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        if ($this->session->userdata('id') !== NULL) {
           echo '
            <div class="form-group">
-           '.$this->session->userdata('first_name').'
-            <a class="btn btn-danger" href=" '.base_url().'account/logout">Logout</a>
+           
+           <div class="dropdown">
+          <a href="#" class="dropdown-toggle btn btn-danger" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$this->session->userdata('first_name').' <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href=" '.base_url().'account/logout">Logout</a></li>
+          </ul>
+        </div>
+            
            </div>';
        } else {
           echo '
-       
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
+          <a class="btn btn-success" href=" '.base_url().'account/login">Sign In</a>
+          <a class="btn btn-warning" href=" '.base_url().'account/register">Sign Up</a>
           ';
          }
         ?>

@@ -10,7 +10,7 @@ class Account extends CI_Controller {
             parent::__construct();
             $this->load->model('User_model', 'user_model', TRUE);
             $this->load->library('form_validation');    
-            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            $this->form_validation->set_error_delimiters('<div class="error alert alert-danger">', '</div>');
             $this->status = $this->config->item('status'); 
             $this->roles = $this->config->item('roles');
             $this->load->helper('url');
@@ -30,7 +30,7 @@ class Account extends CI_Controller {
                     }else{                
                         if($this->user_model->isDuplicate($this->input->post('email'))){
                             $this->session->set_flashdata('flash_message', 'User email already exists');
-                            redirect(site_url().'account/login');
+                            redirect(site_url().'account/register');
                         }else{
                             
                             $clean = $this->security->xss_clean($this->input->post(NULL, TRUE));
@@ -41,13 +41,14 @@ class Account extends CI_Controller {
                             $url = site_url() . 'account/complete/token/' . $qstring;
                             $link = '<a href="' . $url . '">CLICK HERE BITCH</a>'; 
                                        
-                            $message = '';                     
-                            $message .= '<strong>You have signed up with our website</strong><br>';
-                            $message .= '<strong>Please click:</strong> ' . $link;     
+                                              
+                            $message = '<strong>You have signed up with our website</strong><br>';
+                            $message .= $link;     
 
-                            $this->sendmail('elo',$link, 'm.woroniecki@yahoo.co.uk');                     
-         
-                            echo 'sprawdz skrzynke pis jou'; //send this in email
+                            $this->sendmail($message, $this->input->post('email'));                     
+                             // $this->template->load('base_templates/base', 'login');
+
+                            echo '<div class="alert alert-success">sprawdz skrzynke pis jou</div>'; //send this in email
                             exit;
                              
                             
@@ -92,7 +93,7 @@ class Account extends CI_Controller {
                 
                 if(!$userInfo){
                     $this->session->set_flashdata('flash_message', 'There was a problem updating your record');
-                    redirect(site_url().'account/login');
+                    redirect(site_url().'account/complete');
                 }
                 
                 unset($userInfo->password);
@@ -114,6 +115,7 @@ class Account extends CI_Controller {
             $this->form_validation->set_rules('password', 'Password', 'required'); 
             
             if($this->form_validation->run() == FALSE) {
+
                  $this->template->load('base_templates/base','login');
 
             }else{
@@ -124,7 +126,7 @@ class Account extends CI_Controller {
                 $userInfo = $this->user_model->checkLogin($clean);
                 
                 if(!$userInfo){
-                    $this->session->set_flashdata('flash_message', 'The login was unsucessful');
+                    $this->session->set_flashdata('flash_message', 'Wrong login or password');
                     redirect(site_url().'account/login');
                 }                
                 foreach($userInfo as $key=>$val){
@@ -149,12 +151,12 @@ class Account extends CI_Controller {
                 
                 if(!$userInfo){
                     $this->session->set_flashdata('flash_message', 'We cant find your email address');
-                    redirect(site_url().'account/login');
+                    redirect(site_url().'account/forgot');
                 }   
                 
                 if($userInfo->status != $this->status[1]){ //if status is not approved
                     $this->session->set_flashdata('flash_message', 'Your account is not in approved status');
-                    redirect(site_url().'account/login');
+                    redirect(site_url().'account/forgot');
                 }
                 
                 //build token 
@@ -222,7 +224,7 @@ class Account extends CI_Controller {
                    redirect(site_url().'account/login'); 
             }
 
-          public function sendmail($message_, $token, $email ) { 
+          public function sendmail($message_, $email ) { 
                 $this->load->library('email');
 
                 $config['protocol'] = "smtp";
@@ -245,7 +247,7 @@ class Account extends CI_Controller {
                 // $message = "Thanks for signing up! Your account has been created, you can login with your credentials after you have activated your account by pressing the url below. Please click this link to activate your account:<a href='.$token.>Click Here</a>";
 
                 $message = $message_ ;
-                $message .= $token;
+                
 
                 $this->email->message($message);
 
