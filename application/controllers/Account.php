@@ -15,6 +15,7 @@ class Account extends CI_Controller {
             $this->roles = $this->config->item('roles');
             $this->load->helper('url');
             $this->load->library('session');
+            $this->load->library('email');
         }   
 
         public function register()
@@ -38,13 +39,15 @@ class Account extends CI_Controller {
                             
                             $qstring = base64_encode($token);                    
                             $url = site_url() . 'account/complete/token/' . $qstring;
-                            $link = '<a href="' . $url . '">' . $url . '</a>'; 
+                            $link = '<a href="' . $url . '">CLICK HERE BITCH</a>'; 
                                        
                             $message = '';                     
                             $message .= '<strong>You have signed up with our website</strong><br>';
-                            $message .= '<strong>Please click:</strong> ' . $link;                          
+                            $message .= '<strong>Please click:</strong> ' . $link;     
+
+                            $this->sendmail('elo',$link, 'm.woroniecki@yahoo.co.uk');                     
          
-                            echo $message; //send this in email
+                            echo 'sprawdz skrzynke pis jou'; //send this in email
                             exit;
                              
                             
@@ -218,6 +221,38 @@ class Account extends CI_Controller {
                  $this->session->sess_destroy();
                    redirect(site_url().'account/login'); 
             }
+
+          public function sendmail($message_, $token, $email ) { 
+                $this->load->library('email');
+
+                $config['protocol'] = "smtp";
+                // does not have to be gmail
+                $config['smtp_host'] = 'ssl://smtp.gmail.com'; 
+                $config['smtp_port'] = '465';
+                $config['smtp_user'] = 'aparacikk@gmail.com';
+                $config['smtp_pass'] = 'Glejt$90';
+                $config['mailtype'] = 'html';
+                $config['charset'] = 'utf-8';
+                $config['newline'] = "\r\n";
+                $config['wordwrap'] = TRUE;
+
+                $this->email->initialize($config);
+
+                $this->email->from('admin@gmail.com', 'admin');
+                $this->email->to($email);
+                $this->email->subject('Registration Verification:');
+
+                // $message = "Thanks for signing up! Your account has been created, you can login with your credentials after you have activated your account by pressing the url below. Please click this link to activate your account:<a href='.$token.>Click Here</a>";
+
+                $message = $message_ ;
+                $message .= $token;
+
+                $this->email->message($message);
+
+                $this->email->send();
+
+                echo $this->email->print_debugger();
+          } 
 
 
 }

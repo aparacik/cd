@@ -1,7 +1,7 @@
 <div class="col-lg-4 col-lg-offset-4">
     <h2>Please login</h2>
     <?php $fattr = array('class' => 'form-signin');
-         echo form_open(site_url().'account/login/', $fattr); ?>
+         echo form_open(site_url().'account/login/', $fattr); ?> 
     <div class="form-group">
       <?php echo form_input(array(
           'name'=>'email', 
