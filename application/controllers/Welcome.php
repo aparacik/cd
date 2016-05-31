@@ -15,4 +15,9 @@ class Welcome extends CI_Controller {
 		$data = $this->session->all_userdata();
 		$this->template->load('base_templates/base', 'index', $data);
 	}
+
+	public function elo()
+	{
+		echo 'ebac';
+	}
 }

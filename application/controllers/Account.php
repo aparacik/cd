@@ -187,7 +187,6 @@ class Account extends CI_Controller {
             
         }
 
-
         public function reset_password()
         {
             $token = base64_decode($this->uri->segment(4));       
@@ -229,11 +228,7 @@ class Account extends CI_Controller {
             }
         }
 
-        public function logout()
-            {
-                 $this->session->sess_destroy();
-                   redirect(site_url().'account/login'); 
-            }
+        
 
           public function sendmail($subject, $message_, $email ) { 
                 $this->load->library('email');

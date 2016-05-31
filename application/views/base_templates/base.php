@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href=" '.base_url().'account/logout">Logout</a></li>
+            <li><a href=" '.base_url().'accountin/logout">Logout</a></li>
           </ul>
         </div>
             
