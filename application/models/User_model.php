@@ -113,7 +113,7 @@ class User_model extends CI_Model {
 	            $userInfo = $query->row();
 	            
 	            if(!$this->password->validate_password($post['password'], $userInfo->password)){
-	                echo 'Unsuccessful login attempt('.$post['email'].')';
+	                error_log('Unsuccessful login attempt('.$post['email'].')');
 	                return false; 
 	            }
 	            

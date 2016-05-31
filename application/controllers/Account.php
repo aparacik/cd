@@ -45,11 +45,15 @@ class Account extends CI_Controller {
                             $message = '<strong>You have signed up with our website</strong><br>';
                             $message .= $link;     
 
-                            $this->sendmail($subject, $message, $this->input->post('email'));                     
-                             // $this->template->load('base_templates/base', 'login');
+                            $this->sendmail($subject, $message, $this->input->post('email'));   
 
-                            echo '<div class="alert alert-success">sprawdz skrzynke pis jou</div>'; //send this in email
-                            exit;
+                           
+                             $data = array(
+                             'message' => ' Link aktywacyjny został wysłany na '.$this->input->post('email')
+                             );                          
+
+                            $this->template->load('base_templates/base', 'mail_sent' , $data);    
+                            // exit;
                              
                             
                         };              
@@ -170,9 +174,14 @@ class Account extends CI_Controller {
                 $message = '';                     
                 $message .= '<strong>A password reset has been requested for this email account</strong><br>';
                 $message .= '<strong>Please click:</strong> ' . $link;   
-                 $this->sendmail($subject, $message, $email)    ;      
+                $this->sendmail($subject, $message, $email)    ;
+                $data = array(
+                 'message' => ' Hasło zostało wysłane na '.$this->input->post('email')
+                 );                          
+
+                 $this->template->load('base_templates/base', 'mail_sent' , $data);       
                 
-                exit;
+                
                 
             }
             
