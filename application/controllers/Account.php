@@ -268,7 +268,19 @@ class Account extends MY_controller {
                    redirect(site_url().'account/login'); 
             }
 
+            public function detail()
+            {
+                $userInfo = $this->user_model->getUserInfoByEmail($this->session->userdata('email'));
 
+                $data = array(
+                             'first_name' => $userInfo->first_name,
+                             'last_name' => $userInfo->last_name,
+                             'email' => $userInfo->email,
+                             'last_login' => $userInfo->last_login
+                             ); 
+
+                $this->template->load('base_templates/base','account/detail', $data);
+            }
 
 }
 

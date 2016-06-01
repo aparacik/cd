@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class MY_controller extends CI_Controller {
 
 public $restricted = array(
-                'Account'=> array('logout')
+                'Account'=> array('logout','detail'),
+                'Games'=> array('add')
             );
 
 function __construct()
