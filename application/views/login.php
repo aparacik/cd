@@ -19,6 +19,7 @@
           'value'=> set_value('email'))); ?>
       <?php echo form_error('email') ?>
     </div>
+
     <div class="form-group">
       <?php echo form_password(array(
           'name'=>'password', 
@@ -30,6 +31,7 @@
           echo $wrong_pass;
       ?>
     </div>
+    
     <?php echo form_submit(array('value'=>'Let me in!', 'class'=>'btn btn-lg btn-primary btn-block')); ?>
     <?php echo form_close(); ?>
     <p>Don't have an account? Click to <a href="<?php echo site_url();?>account/register">Register</a></p>

@@ -6,6 +6,7 @@ class AccountIn extends MY_controller {
 	function __construct(){
             parent::__construct();
             $this->load->library('session');
+            $this->load->library('form_validation');
         } 
 
 
@@ -14,4 +15,6 @@ class AccountIn extends MY_controller {
                  $this->session->sess_destroy();
                    redirect(site_url().'account/login'); 
             }
+
+   
 }
