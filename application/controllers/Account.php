@@ -26,7 +26,7 @@ class Account extends CI_Controller {
                     $this->form_validation->set_rules('email', 'Email', 'required|valid_email');    
                                
                     if ($this->form_validation->run() == FALSE) {   
-                        $this->template->load('base_templates/base', 'register');
+                        $this->template->load('base_templates/base', 'account/register');
                     }else{                
                         if($this->user_model->isDuplicate($this->input->post('email'))){
                             $this->session->set_flashdata('flash_message', 'User email already exists');
@@ -52,7 +52,7 @@ class Account extends CI_Controller {
                              'message' => ' Link aktywacyjny został wysłany na '.$this->input->post('email')
                              );                          
 
-                            $this->template->load('base_templates/base', 'mail_sent' , $data);    
+                            $this->template->load('base_templates/base', 'account/mail_sent' , $data);    
                             // exit;
                              
                             
@@ -82,7 +82,7 @@ class Account extends CI_Controller {
             $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');              
             
             if ($this->form_validation->run() == FALSE) {   
-                 $this->template->load('base_templates/base', 'complete', $data);
+                 $this->template->load('base_templates/base', 'account/complete', $data);
             }else{
                 
                 $this->load->library('password');                 
@@ -120,7 +120,7 @@ class Account extends CI_Controller {
             
             if($this->form_validation->run() == FALSE) {
 
-                 $this->template->load('base_templates/base','login');
+                 $this->template->load('base_templates/base','account/login');
 
             }else{
                 
@@ -179,7 +179,7 @@ class Account extends CI_Controller {
                  'message' => ' Hasło zostało wysłane na '.$this->input->post('email')
                  );                          
 
-                 $this->template->load('base_templates/base', 'mail_sent' , $data);       
+                 $this->template->load('base_templates/base', 'account/mail_sent' , $data);       
                 
                 
                 
@@ -210,7 +210,7 @@ class Account extends CI_Controller {
             
             if ($this->form_validation->run() == FALSE) {   
                
-                $this->template->load('base_templates/base','reset_password', $data);
+                $this->template->load('base_templates/base','account/reset_password', $data);
             }else{
                                 
                 $this->load->library('password');                 
