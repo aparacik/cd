@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="span12">
 		<!-- Otwieramy formularz -->
-		<?php echo form_open('games/add', array('class'=>'form-horizontal')); ?>
+		<?php echo form_open('http://[::1]/cd/games/add', array('class'=>'form-horizontal')); ?>
 		<fieldset>
 			<div class="control-group">
 				<label class="control-label" for="title">Tytuł</label>

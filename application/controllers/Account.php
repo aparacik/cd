@@ -147,7 +147,7 @@ class Account extends CI_Controller {
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email'); 
             
             if($this->form_validation->run() == FALSE) {
-                $this->template->load('base_templates/base','forgot');
+                $this->template->load('base_templates/base','account/forgot');
             }else{
                 $email = $this->input->post('email');  
                 $clean = $this->security->xss_clean($email);
