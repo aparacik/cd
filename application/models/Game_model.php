@@ -18,7 +18,7 @@ class Game_model extends CI_Model {
 	            $string = array(
 	                'game_title'=>$d['title'],
 	                // 'game_premiere'=>$d['premiere'],
-	                'game_describe'=>$d['describe'],
+	                'game_describe'=>nl2br($d['describe']),
 	                // 'game_author'=>$d['author'],
 	            );
 	            $q = $this->db->insert_string('games',$string);             
@@ -32,4 +32,14 @@ class Game_model extends CI_Model {
         return $this->db->affected_rows() > 0 ? TRUE : FALSE;         
     }
 
+    function getGameInfo($id) {
+		        $q = $this->db->get_where('games', array('game_id' => $id), 1);  
+		        if($this->db->affected_rows() > 0){
+		            $row = $q->row();
+		            return $row;
+		        }else{
+		            error_log('no game found getGameInfo('.$id.')');
+		            return false;
+		        }
+		}
 }
