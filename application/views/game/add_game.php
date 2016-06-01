@@ -28,9 +28,10 @@
 					'rows'=>'8',
 					'placeholder'=>'Game describe',
 					'class'=>'input-xlarge',
-					'value'=> set_value('describe'))); ?>
+					'value'=> nl2br(set_value('describe')))); ?>
 					<?php echo form_error('describe') ?>
 				</div>
+
 				<label class="control-label" for="title">Premiera</label>
 				<div class="controls">
 					<?php echo form_textarea(array(

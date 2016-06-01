@@ -49,4 +49,26 @@ class Games extends MY_controller {
             redirect('');
         }
     }
+
+    function detail()
+    {       
+        
+        $game_id = $this->uri->segment(3, 0);
+
+        $game =  $this->game_model->getGameInfo($game_id); //nasza wlasna funkcja z modelu pobierajaca 15 rekordow 
+        if($game == TRUE){
+        $data = array(
+                 'title' => $game->title,
+                 'describe' => $game->describe
+                 ); 
+       }else{
+        $data = array(
+                 'title' => 'Nie znaleziono takiej gry.',
+                 'describe' => ''
+                 ); 
+       }
+        $this->template->load('base_templates/base', 'game/detail', $data);
+ 
+ 
+    }
 }
