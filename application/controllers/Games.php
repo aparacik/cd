@@ -59,7 +59,8 @@ class Games extends MY_controller {
         if($game == TRUE){
         $data = array(
                  'title' => $game->title,
-                 'describe' => $game->describe
+                 'describe' => $game->describe,
+                 'date' => $game->date
                  ); 
        }else{
         $data = array(

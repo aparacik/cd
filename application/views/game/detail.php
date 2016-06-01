@@ -1,12 +1,8 @@
-<div class="col-sm-6">
-	<div class="form_control">
-		<ul>
-			<li></li>
-			<?php echo $title; ?>
-			<pre><?php echo $describe; ?></pre>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
+<div class="container detail">
+	<div class="row">
+		<h1 ><?php echo $title; ?></h1>
 	</div>
+	
+<pre ><?php echo $describe; ?></pre>
+<pre ><?php echo $date; ?></pre>
 </div>
