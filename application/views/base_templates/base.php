@@ -15,8 +15,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <link href="<?php echo base_url('bootstrap/css/bootstrap.css');?>" rel="stylesheet">
 	<link href="<?php echo base_url('bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-  <script src="<?php echo base_url('js/bootstrap-datetimepicker.min.js'); ?>"></script>
-
 
     <title>Jumbotron Template for Bootstrap</title>
 

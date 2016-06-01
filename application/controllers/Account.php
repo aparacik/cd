@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Account extends CI_Controller {
+class Account extends MY_controller {
         
         public $status; 
         public $roles;
@@ -261,6 +261,13 @@ class Account extends CI_Controller {
 
                 echo $this->email->print_debugger();
           } 
+
+          public function logout()
+            {
+                 $this->session->sess_destroy();
+                   redirect(site_url().'account/login'); 
+            }
+
 
 
 }
